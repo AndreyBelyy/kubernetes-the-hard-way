@@ -33,6 +33,28 @@ The versions chosen here align with those that are installed by the current `kub
   sudo tar -xzvf containerd-${CONTAINERD_VERSION}-linux-amd64.tar.gz -C /usr/local
   sudo tar -xzvf cni-plugins-linux-amd64-v${CNI_VERSION}.tgz -C /opt/cni/bin
 }
+
+
+For arm64:
+
+{
+  CONTAINERD_VERSION=1.6.9
+  CNI_VERSION=1.1.2
+  RUNC_VERSION=1.1.4
+
+  wget -q --show-progress --https-only --timestamping \
+    https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VERSION}/containerd-${CONTAINERD_VERSION}-linux-arm64.tar.gz \
+    https://github.com/containernetworking/cni/archive/refs/tags/v${CNI_VERSION}.tar.gz \
+    https://github.com/opencontainers/runc/releases/download/v${RUNC_VERSION}/runc.arm64
+
+  sudo mkdir -p /opt/cni/bin
+
+  sudo chmod +x runc.arm64
+  sudo mv runc.arm64 /usr/local/bin/runc
+
+  sudo tar -xzvf containerd-${CONTAINERD_VERSION}-linux-arm64.tar.gz -C /usr/local
+  sudo tar -xzvf v${CNI_VERSION}.tgz -C /opt/cni/bin
+}
 ```
 
 Next create the `containerd` service unit.
